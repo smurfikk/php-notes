@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #212529;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.editor {
+    background-color: #6500d4;
+}
+
+.editor i {
+    color: white;
+}
+
+textarea, input {
+    background-color: #212529 !important;
+    color: white !important;
+    border: 1px solid #495057;
+}
+
+.list-group-item {
+    background-color: #212529;
+    color: white;
+    border: 1px solid #495057;
+}
+
+.menu-vision {
+    margin-left: 5px;
+}
+
+.sidebar {
+    transition: width 0.5s ease;
+}
+
+.content {
+    transition: margin-left 0.5s ease;
+}
+
+.editor .col-1,
+.editor .col-2,
+.editor .col-3,
+.editor .col-6,
+.editor .col-7 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.userLogin {
+    border: 2px solid #7d3fc9;
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+#logoutBtn {
+    display: none;
+    background-color: #6500d4;
+    border: 2px solid #7d3fc9;
+    border-radius: 5px;
+    color: white;
+    position: absolute;
+    margin-top: 5px;
+}
+
+.userLogin:hover #logoutBtn {
+    display: block;
+}
+
+.btn-action:hover {
+    cursor: pointer;
+}
+
+.note-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body.form-signing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    margin: 0;
+}
+
+body.form-signing form {
+    width: 300px;
+}
+
+input.form-control {
+    background-color: var(--bs-body-bg);
+}
+
+a.form-link {
+    color: #bebebe;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    transition: height 0.3s, text-decoration-color 0.3s;
+}
+
+
+a.form-link:hover {
+    color: #f0f1f4;
+    text-decoration-color: #f0f1f4;
+}
+
+#liveCopyLink {
+    background-color: black;
+    opacity: 0.9;
+}
+
+#liveCopyLink button {
+    color: #ffffff;
+}
