@@ -43,7 +43,25 @@ function getNote($id): array|null
     $conn = connect();
     $escapedId = mysqli_real_escape_string($conn, $id);
 
-    $result = $conn->query("SELECT id, content FROM notes WHERE id = '$escapedId'");
+    $result = $conn->query("SELECT id, content, hash FROM notes WHERE id = '$escapedId'");
+
+    if ($result && $result->num_rows > 0) {
+        $record = $result->fetch_assoc();
+        $conn->close();
+        return $record;
+    }
+    $conn->close();
+    return null;
+}
+
+function getNoteByHash($hash): array|null
+{
+    if ($hash == null)
+        return null;
+    $conn = connect();
+    $escapedId = mysqli_real_escape_string($conn, $hash);
+
+    $result = $conn->query("SELECT id, content, hash FROM notes WHERE hash = '$hash'");
 
     if ($result && $result->num_rows > 0) {
         $record = $result->fetch_assoc();

@@ -111,14 +111,15 @@ $id = $_GET['id'] ?? null;
             if ($note != null) {
                 echo "<input type='number' id='noteId' name='noteId' value='" . $note["id"] . "' hidden>";
                 echo "<input type='number' id='userId' name='userId' value='" . $userId . "' hidden>";
+                echo "<input type='text' id='hash' name='hash' value='" . $note["hash"] . "' hidden>";
                 echo "<textarea class='form-control card-text' id='noteText' style='height: 85vh' name='noteText'>" . $note["content"] . "</textarea>";
             } else {
                 echo "<input type='number' id='noteId' name='noteId' value='' hidden>";
                 echo "<input type='number' id='userId' name='userId' value='" . $userId . "' hidden>";
+                echo "<input type='text' id='hash' name='hash' value='' hidden>";
                 echo "<textarea class='form-control card-text' id='noteText' style='height: 85vh' name='noteText'></textarea>";
             }
             ?>
-
             <label for="noteText"></label>
         </div>
     </div>

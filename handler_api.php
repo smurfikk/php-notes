@@ -64,6 +64,10 @@ function updateNote(): void
     } else {
         if ($conn->query("INSERT INTO notes (content, updated, user_id) VALUES ('$content', $currentTime, $userId)") === TRUE) {
             $response['id'] = $conn->insert_id;
+            $id = $response['id'];
+            $hash = md5($id);
+            $conn->query("UPDATE notes SET hash = '$hash' WHERE id = $id");
+            $response['hash'] = $hash;
         } else {
             $response['error'] = "Ошибка: " . $conn->error;
         }

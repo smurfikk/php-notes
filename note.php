@@ -1,7 +1,7 @@
 <?php
 include "functions.php";
-$id = $_GET['id'] ?? null;
-$note = getNote($id);
+$id = $_GET['hash'] ?? null;
+$note = getNoteByHash($id);
 if ($note == null) {
     header("Location: /index.php");
     exit();

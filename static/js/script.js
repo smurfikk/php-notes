@@ -31,6 +31,7 @@ $(document).ready(function () {
                     } else {
                         console.log(responseObject.id)
                         $('#noteId').val(responseObject.id);
+                        $('#hash').val(responseObject.hash);
                     }
                 },
                 error: function (xhr, status, error) {
@@ -62,7 +63,7 @@ $(document).ready(function () {
         });
     });
     $('#btnCopyLink').on('click', function () {
-        let url = window.location.href.replace("index", "note");
+        let url = window.location.origin + "/note.php?hash=" + $('#hash').val();
         navigator.clipboard.writeText(url);
     });
 
