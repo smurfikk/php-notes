@@ -6,6 +6,8 @@ if ($method == "updateNote")
     updateNote();
 elseif ($method == "removeNote")
     removeNote();
+elseif ($method == "changeVisibilityNote")
+    changeVisibilityNote();
 
 function removeNote(): void
 {
@@ -24,10 +26,7 @@ function removeNote(): void
         $conn->close();
     } else
         $response['error'] = "Ошибка: неверный id";
-
-
     echo json_encode($response);
-
 }
 
 function updateNote(): void
@@ -83,4 +82,29 @@ function checkIfExists($conn, $id): bool
 {
     $result = $conn->query("SELECT id FROM notes WHERE id = '$id'");
     return ($result->num_rows > 0);
+}
+
+function changeVisibilityNote(): void
+{
+    $response = array();
+    $response['error'] = null;
+    $id = $_POST['id'];
+    if ($id == "")
+        $id = null;
+
+    if ($_POST['status'] == "true")
+        $status = 1;
+    else
+        $status = 0;
+
+    if (is_numeric($id)) {
+        $conn = connect();
+        $id = mysqli_real_escape_string($conn, $id);
+        if (!$conn->query("UPDATE notes SET visibility = $status WHERE id = $id")) {
+            $response['error'] = "Ошибка: " . $conn->error;
+        }
+        $conn->close();
+    } else
+        $response['error'] = "Ошибка: неверный id";
+    echo json_encode($response);
 }

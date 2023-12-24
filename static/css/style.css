@@ -58,7 +58,7 @@ textarea, input {
     padding: 4px 8px;
 }
 
-#logoutBtn {
+.logoutBtn {
     display: none;
     background-color: #6500d4;
     border: 2px solid #7d3fc9;
@@ -68,7 +68,7 @@ textarea, input {
     margin-top: 5px;
 }
 
-.userLogin:hover #logoutBtn {
+.userLogin:hover .logoutBtn {
     display: block;
 }
 

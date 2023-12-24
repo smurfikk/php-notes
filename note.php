@@ -5,6 +5,9 @@ $note = getNoteByHash($id);
 if ($note == null) {
     header("Location: /index.php");
     exit();
+} elseif (!$note['visibility']) {
+    header("Location: /index.php");
+    exit();
 }
 ?>
 <!doctype html>

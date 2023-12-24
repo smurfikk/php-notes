@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -57,9 +57,9 @@ $id = $_GET['id'] ?? null;
                data-bs-placement="bottom">
                 <i class="fa-solid fa-trash"></i>
             </i>
-            <i id="btnCopyLink" class="btn-action" data-bs-toggle="tooltip" data-bs-title="Поделиться"
-               data-bs-placement="bottom">
-                <i class="fa-solid fa-paperclip"></i>
+            <i id="btnShare" class="btn-action" data-bs-toggle="modal" data-bs-target="#modalShareLink">
+                <i class="fa-solid fa-paperclip" data-bs-toggle="tooltip" data-bs-title="Поделиться"
+                   data-bs-placement="bottom"></i>
             </i>
         </div>
         <div class="col-2 p-2">
@@ -76,11 +76,12 @@ $id = $_GET['id'] ?? null;
                 <i class="fa-solid fa-underline"></i>
             </i>
         </div>
-        <div class="col-3 p-2"></div>
+        <div class="col-3 p-2">
+        </div>
         <div class="col-1">
             <p class="userLogin m-auto">
                 <?php echo $userLogin ?>
-                <a href="logout.php" id="logoutBtn" class="btn btn-action">Выход</a>
+                <a href="logout.php" class="btn btn-action logoutBtn">Выход</a>
             </p>
         </div>
     </div>
@@ -123,7 +124,7 @@ $id = $_GET['id'] ?? null;
             <label for="noteText"></label>
         </div>
     </div>
-    <!--    liveCopyLink-->
+
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveCopyLink" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
@@ -134,6 +135,38 @@ $id = $_GET['id'] ?? null;
                         aria-label="Закрыть">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+</div> <!-- modalShareLink -->
+
+<div class="modal modal-sheet" id="modalShareLink" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Настройки доступа</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <label for="ShareLinkNote"></label>
+                        <input type="text" class="form-control" id="ShareLinkNote" value="" readonly>
+                        <button id="btnCopyLink" type="button" class="btn btn-outline-light">Копировать</button>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="btnSwitchShareAccess"
+                            <?php
+                            if ($note)
+                                if ($note['visibility'])
+                                    echo "checked";
+                            ?>
+                        >
+                        <label class="form-check-label" for="btnSwitchShareAccess">Доступ по ссылке</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Готово</button>
+                </div>
             </div>
         </div>
     </div>

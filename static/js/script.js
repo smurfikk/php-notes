@@ -62,9 +62,33 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#ShareLinkNote').val(window.location.origin + "/note.php?hash=" + $('#hash').val());
     $('#btnCopyLink').on('click', function () {
         let url = window.location.origin + "/note.php?hash=" + $('#hash').val();
         navigator.clipboard.writeText(url);
+    });
+
+    let btnSwitchShareAccess = $('#btnSwitchShareAccess');
+    btnSwitchShareAccess.on("change", function () {
+        $.ajax({
+            url: 'handler_api.php',
+            method: 'POST',
+            data: {
+                method: "changeVisibilityNote",
+                id: $('#noteId').val(),
+                status: btnSwitchShareAccess.is(':checked'),
+            },
+            success: function (response) {
+                if (response.error !== undefined && response.error !== null) {
+                    console.error(response);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+
     });
 
 });
@@ -80,3 +104,10 @@ if (toastTrigger) {
         }, 3000);
     })
 }
+
+// const modalShareLink = document.getElementById('myModal')
+// const myInput = document.getElementById('myInput')
+//
+// modalShareLink.addEventListener('shown.bs.modal', () => {
+//     myInput.focus()
+// })

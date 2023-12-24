@@ -43,7 +43,7 @@ function getNote($id): array|null
     $conn = connect();
     $escapedId = mysqli_real_escape_string($conn, $id);
 
-    $result = $conn->query("SELECT id, content, hash FROM notes WHERE id = '$escapedId'");
+    $result = $conn->query("SELECT id, content, hash, visibility FROM notes WHERE id = '$escapedId'");
 
     if ($result && $result->num_rows > 0) {
         $record = $result->fetch_assoc();
@@ -61,7 +61,7 @@ function getNoteByHash($hash): array|null
     $conn = connect();
     $escapedId = mysqli_real_escape_string($conn, $hash);
 
-    $result = $conn->query("SELECT id, content, hash FROM notes WHERE hash = '$hash'");
+    $result = $conn->query("SELECT id, content, hash, visibility FROM notes WHERE hash = '$hash'");
 
     if ($result && $result->num_rows > 0) {
         $record = $result->fetch_assoc();
@@ -122,4 +122,39 @@ function getUser($id): string|null
     }
     $conn->close();
     return null;
+}
+
+function getAllUsers(): array
+{
+    $conn = connect();
+    $users = array();
+    $result = $conn->query("SELECT id, login FROM user");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $users[] = array(
+                'id' => $row['id'],
+                'login' => $row['login'],
+            );
+        }
+    }
+    $conn->close();
+    return $users;
+}
+
+function getAllNotes(): array
+{
+    $conn = connect();
+    $notes = array();
+    $result = $conn->query("SELECT id, user_id, hash FROM notes");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $notes[] = array(
+                'id' => $row['id'],
+                'user_id' => $row['user_id'],
+                'hash' => $row['hash'],
+            );
+        }
+    }
+    $conn->close();
+    return $notes;
 }
