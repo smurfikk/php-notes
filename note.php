@@ -24,6 +24,9 @@ if ($note == null) {
 </head>
 <body>
 <div class="container mt-1">
+    <?php
+    echo "<h4>" . $note["title"] . "</h4>";
+    ?>
     <textarea class="form-control card-text" id="noteText" style="height: 90vh" name="noteText" disabled><?php
         echo $note["content"];
         ?></textarea>

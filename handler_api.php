@@ -34,6 +34,7 @@ function updateNote(): void
     $id = $_POST['id'];
     if ($id == "")
         $id = null;
+    $title = $_POST['title'];
     $content = $_POST['content'];
     $userId = $_POST['userId'];
 
@@ -55,13 +56,15 @@ function updateNote(): void
         $id = mysqli_real_escape_string($conn, $id);
     if ($content != "")
         $content = mysqli_real_escape_string($conn, $content);
+    if ($title != "")
+        $title = mysqli_real_escape_string($conn, $title);
 
     if ($id != null && checkIfExists($conn, $id)) {
-        if (!$conn->query("UPDATE notes SET content = '$content', updated = $currentTime WHERE id = $id")) {
+        if (!$conn->query("UPDATE notes SET title = '$title', content = '$content', updated = $currentTime WHERE id = $id")) {
             $response['error'] = "Ошибка: " . $conn->error;
         }
     } else {
-        if ($conn->query("INSERT INTO notes (content, updated, user_id) VALUES ('$content', $currentTime, $userId)") === TRUE) {
+        if ($conn->query("INSERT INTO notes (title, content, updated, user_id) VALUES ('$title', '$content', $currentTime, $userId)") === TRUE) {
             $response['id'] = $conn->insert_id;
             $id = $response['id'];
             $hash = md5($id);

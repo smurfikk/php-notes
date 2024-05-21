@@ -113,11 +113,15 @@ $id = $_GET['id'] ?? null;
                 echo "<input type='number' id='noteId' name='noteId' value='" . $note["id"] . "' hidden>";
                 echo "<input type='number' id='userId' name='userId' value='" . $userId . "' hidden>";
                 echo "<input type='text' id='hash' name='hash' value='" . $note["hash"] . "' hidden>";
+                echo "<input type='text' id='noteTitle' placeholder='Введите название' name='noteTitle' value='" . $note["title"] . "'><br>";
+                echo '<br>';
                 echo "<textarea class='form-control card-text' id='noteText' style='height: 85vh' name='noteText'>" . $note["content"] . "</textarea>";
             } else {
                 echo "<input type='number' id='noteId' name='noteId' value='' hidden>";
                 echo "<input type='number' id='userId' name='userId' value='" . $userId . "' hidden>";
                 echo "<input type='text' id='hash' name='hash' value='' hidden>";
+                echo "<input type='text' placeholder='Введите название' id='noteTitle' name='noteTitle'><br>";
+                echo '<br>';
                 echo "<textarea class='form-control card-text' id='noteText' style='height: 85vh' name='noteText'></textarea>";
             }
             ?>
@@ -138,7 +142,7 @@ $id = $_GET['id'] ?? null;
             </div>
         </div>
     </div>
-</div> <!-- modalShareLink -->
+</div>
 
 <div class="modal modal-sheet" id="modalShareLink" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

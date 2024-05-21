@@ -18,10 +18,12 @@ function getArrayNotes($userId): array
 {
     $conn = connect();
     $notes = array();
-    $result = $conn->query("SELECT id, content FROM notes WHERE user_id = $userId ORDER BY updated DESC");
+    $result = $conn->query("SELECT id, title, content FROM notes WHERE user_id = $userId ORDER BY updated DESC");
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $name = substr($row['content'], 0, strpos($row['content'], "\n") ?: strlen($row['content']));
+            $name = $row['title'];
+            if (!$name)
+                $name = substr($row['content'], 0, strpos($row['content'], "\n") ?: strlen($row['content']));
             if ($name == "") {
                 $name = "Без названия";
             }
@@ -43,7 +45,7 @@ function getNote($id): array|null
     $conn = connect();
     $escapedId = mysqli_real_escape_string($conn, $id);
 
-    $result = $conn->query("SELECT id, content, hash, visibility FROM notes WHERE id = '$escapedId'");
+    $result = $conn->query("SELECT id, title, content, hash, visibility FROM notes WHERE id = '$escapedId'");
 
     if ($result && $result->num_rows > 0) {
         $record = $result->fetch_assoc();
@@ -61,7 +63,7 @@ function getNoteByHash($hash): array|null
     $conn = connect();
     $escapedId = mysqli_real_escape_string($conn, $hash);
 
-    $result = $conn->query("SELECT id, content, hash, visibility FROM notes WHERE hash = '$hash'");
+    $result = $conn->query("SELECT id, title, content, hash, visibility FROM notes WHERE hash = '$hash'");
 
     if ($result && $result->num_rows > 0) {
         $record = $result->fetch_assoc();

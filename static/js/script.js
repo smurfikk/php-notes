@@ -12,35 +12,44 @@ $(document).ready(function () {
     let changeTimer = false;
 
     $('#noteText').on('input', function () {
-        const newTextValue = $(this).val();
         if (changeTimer !== false) clearTimeout(changeTimer);
-        changeTimer = setTimeout(function () {
-            $.ajax({
-                url: 'handler_api.php',
-                method: 'POST',
-                data: {
-                    method: "updateNote",
-                    id: $('#noteId').val(),
-                    content: newTextValue,
-                    userId: $('#userId').val(),
-                },
-                success: function (response) {
-                    const responseObject = JSON.parse(response);
-                    if (responseObject.error !== undefined && responseObject.error !== null) {
-                        console.error(responseObject);
-                    } else {
-                        console.log(responseObject.id)
-                        $('#noteId').val(responseObject.id);
-                        $('#hash').val(responseObject.hash);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-            changeTimer = false;
-        }, 300);
+        changeTimer = setTimeout(updateNote(), 300);
     });
+
+    $('#noteTitle').on('input', function () {
+        if (changeTimer !== false) clearTimeout(changeTimer);
+        changeTimer = setTimeout(updateNote(), 300);
+    });
+
+    function updateNote() {
+        const newTextValue = $('#noteText').val();
+        $.ajax({
+            url: 'handler_api.php',
+            method: 'POST',
+            data: {
+                method: "updateNote",
+                id: $('#noteId').val(),
+                title: $('#noteTitle').val(),
+                content: newTextValue,
+                userId: $('#userId').val(),
+            },
+            success: function (response) {
+                const responseObject = JSON.parse(response);
+                if (responseObject.error !== undefined && responseObject.error !== null) {
+                    console.error(responseObject);
+                } else {
+                    console.log(responseObject.id)
+                    $('#noteId').val(responseObject.id);
+                    $('#hash').val(responseObject.hash);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+        changeTimer = false;
+    }
+
     $('#btnRemove').on('click', function () {
 
         $.ajax({
@@ -104,10 +113,3 @@ if (toastTrigger) {
         }, 3000);
     })
 }
-
-// const modalShareLink = document.getElementById('myModal')
-// const myInput = document.getElementById('myInput')
-//
-// modalShareLink.addEventListener('shown.bs.modal', () => {
-//     myInput.focus()
-// })
